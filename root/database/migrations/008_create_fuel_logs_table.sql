@@ -1,0 +1,11 @@
+CREATE TABLE IF NOT EXISTS fuel_logs (
+    fuel_log_id INT PRIMARY KEY AUTO_INCREMENT,
+    vehicle_id INT NOT NULL,
+    log_date DATE NOT NULL,
+    liters DECIMAL(10,2) NOT NULL,
+    cost_etb DECIMAL(10,2) NOT NULL,
+    mileage INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (vehicle_id) REFERENCES vehicles(vehicle_id) ON DELETE CASCADE
+);

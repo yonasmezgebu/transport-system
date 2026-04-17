@@ -1,0 +1,857 @@
+/* Fleet Officer Profile Section - Latest CSS Art */
+.profileSection {
+  position: relative;
+  padding: 6rem 2rem;
+  overflow: hidden;
+  background: linear-gradient(135deg, #e8ecf1 0%, #f5f7fa 100%);
+  isolation: isolate;
+}
+
+/* Animated Background */
+.profileBackground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.bgPattern {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 20% 50%, rgba(14, 159, 110, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(10, 92, 68, 0.05) 0%, transparent 50%);
+  animation: patternMove 20s ease-in-out infinite;
+}
+
+@keyframes patternMove {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+  }
+  50% {
+    transform: scale(1.05) rotate(1deg);
+  }
+}
+
+.gradientOrb1,
+.gradientOrb2 {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.3;
+  animation: floatOrb 15s ease-in-out infinite;
+}
+
+.gradientOrb1 {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, #0e9f6e, #0a5c44);
+  top: -200px;
+  left: -200px;
+  animation-delay: 0s;
+}
+
+.gradientOrb2 {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, #0e9f6e, #0a5c44);
+  bottom: -250px;
+  right: -250px;
+  animation-delay: 5s;
+}
+
+@keyframes floatOrb {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(30px, -30px) scale(1.1);
+  }
+}
+
+/* Floating Elements */
+.floatingElements {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.floatingIcon1,
+.floatingIcon2,
+.floatingIcon3,
+.floatingIcon4 {
+  position: absolute;
+  font-size: 2rem;
+  opacity: 0.1;
+  animation: floatElement 10s ease-in-out infinite;
+}
+
+.floatingIcon1 { top: 20%; left: 10%; animation-delay: 0s; }
+.floatingIcon2 { top: 70%; right: 15%; animation-delay: 2s; }
+.floatingIcon3 { bottom: 20%; left: 20%; animation-delay: 4s; }
+.floatingIcon4 { top: 40%; right: 25%; animation-delay: 6s; }
+
+@keyframes floatElement {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate(20px, -20px) rotate(10deg);
+  }
+}
+
+/* Container */
+.container {
+  position: relative;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  z-index: 1;
+}
+
+/* Profile Card */
+.profileCard {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 0;
+  background: white;
+  border-radius: 40px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0;
+  transform: translateY(50px);
+}
+
+.profileCard.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.profileCard:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
+}
+
+/* Image Section */
+.imageSection {
+  position: relative;
+  background: linear-gradient(135deg, #0e9f6e, #0a5c44);
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.imageGlow {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.3), transparent);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.imageWrapper:hover .imageGlow {
+  opacity: 0.5;
+}
+
+.profileImage {
+  width: 100%;
+  height: auto;
+  border-radius: 30px;
+  object-fit: cover;
+  transition: all 0.4s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.imageWrapper:hover .profileImage {
+  transform: scale(1.02);
+}
+
+.imageOverlay {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 0.75rem;
+  transform: translateY(100%);
+  opacity: 0;
+  transition: all 0.3s ease;
+  z-index: 2;
+}
+
+.imageWrapper:hover .imageOverlay {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.overlayContent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.overlayIcon {
+  font-size: 1rem;
+}
+
+.imageBorder {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 40px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.imageWrapper:hover .imageBorder {
+  opacity: 1;
+}
+
+/* Experience Badge */
+.experienceBadge {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  background: white;
+  border-radius: 20px;
+  padding: 0.75rem 1rem;
+  text-align: center;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  animation: pulse 2s ease-in-out infinite;
+  z-index: 2;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+  }
+}
+
+.badgeYears {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #0e9f6e;
+  line-height: 1;
+}
+
+.badgeText {
+  display: block;
+  font-size: 0.7rem;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+/* Content Section */
+.contentSection {
+  padding: 3rem;
+  position: relative;
+}
+
+/* Badge */
+.badge {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, rgba(14, 159, 110, 0.1), rgba(10, 92, 68, 0.1));
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  margin-bottom: 1.5rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #0e9f6e;
+  overflow: hidden;
+}
+
+.badgeIcon {
+  font-size: 1rem;
+  animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+}
+
+.badgePulse {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(14, 159, 110, 0.2), transparent);
+  animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+/* Section Title */
+.sectionTitle {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  color: #6b7280;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+/* Officer Name */
+.officerName {
+  font-size: clamp(1.8rem, 5vw, 2.5rem);
+  color: #1f2937;
+  margin-bottom: 2rem;
+  font-weight: 700;
+  position: relative;
+  display: inline-block;
+}
+
+.nameUnderline {
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #0e9f6e, #0a5c44);
+  transition: width 0.4s ease;
+}
+
+.contentSection:hover .nameUnderline {
+  width: 100%;
+}
+
+/* Stats Grid */
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.statCard {
+  position: relative;
+  background: #f9fafb;
+  border-radius: 20px;
+  padding: 1rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.statCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.statIcon {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.statNumber {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #0e9f6e;
+  margin-bottom: 0.25rem;
+}
+
+.statLabel {
+  font-size: 0.75rem;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.statProgress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #0e9f6e, #0a5c44);
+  transition: width 0.4s ease;
+}
+
+.statCard:hover .statProgress {
+  width: 100%;
+}
+
+/* Bio Button */
+.bioButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: linear-gradient(135deg, #0e9f6e, #0a5c44);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 15px rgba(14, 159, 110, 0.3);
+}
+
+.bioButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(14, 159, 110, 0.4);
+  gap: 1rem;
+}
+
+.buttonArrow {
+  transition: transform 0.3s ease;
+}
+
+.arrowRotated {
+  transform: rotate(180deg);
+}
+
+/* Bio Section */
+.bioSection {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.6s ease;
+}
+
+.bioExpanded {
+  max-height: 800px;
+}
+
+.bioContent {
+  animation: fadeInUp 0.5s ease;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.bioText {
+  background: #f9fafb;
+  border-radius: 20px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.bioText p {
+  color: #4b5563;
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+/* Achievements Section */
+.achievementsSection {
+  margin-top: 1.5rem;
+}
+
+.achievementsTitle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.1rem;
+  color: #1f2937;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.trophyIcon {
+  font-size: 1.2rem;
+}
+
+.achievementsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+.achievementItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  background: white;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.achievementItem:hover {
+  transform: translateX(5px);
+  background: linear-gradient(135deg, rgba(14, 159, 110, 0.05), rgba(10, 92, 68, 0.05));
+}
+
+.checkIcon {
+  color: #0e9f6e;
+  font-weight: bold;
+}
+
+/* Contact Section */
+.contactSection {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.contactButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+  border: 2px solid #0e9f6e;
+  color: #0e9f6e;
+  padding: 0.75rem 1.5rem;
+  border-radius: 50px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.contactButton:hover {
+  background: #0e9f6e;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(14, 159, 110, 0.3);
+}
+
+.socialLinks {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.socialLink {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f3f4f6;
+  border-radius: 50%;
+  text-decoration: none;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.socialLink:hover {
+  background: #0e9f6e;
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .profileSection {
+    padding: 5rem 1.5rem;
+  }
+  
+  .contentSection {
+    padding: 2rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .profileCard {
+    grid-template-columns: 1fr;
+  }
+  
+  .imageSection {
+    padding: 2rem;
+  }
+  
+  .imageWrapper {
+    max-width: 300px;
+  }
+  
+  .experienceBadge {
+    top: 20px;
+    right: 20px;
+  }
+  
+  .statsGrid {
+    gap: 1rem;
+  }
+  
+  .achievementsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .profileSection {
+    padding: 4rem 1rem;
+  }
+  
+  .container {
+    padding: 0 1rem;
+  }
+  
+  .contentSection {
+    padding: 1.5rem;
+  }
+  
+  .statsGrid {
+    gap: 0.75rem;
+  }
+  
+  .statNumber {
+    font-size: 1.4rem;
+  }
+  
+  .statIcon {
+    font-size: 1.5rem;
+  }
+  
+  .bioButton {
+    padding: 0.875rem 1.5rem;
+    font-size: 0.9rem;
+  }
+  
+  .contactSection {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .contactButton {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .socialLinks {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .profileSection {
+    padding: 3rem 0.75rem;
+  }
+  
+  .statsGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .badge {
+    font-size: 0.75rem;
+  }
+  
+  .sectionTitle {
+    font-size: 1.3rem;
+  }
+  
+  .officerName {
+    font-size: 1.5rem;
+  }
+  
+  .bioText {
+    padding: 1rem;
+  }
+  
+  .bioText p {
+    font-size: 0.85rem;
+  }
+  
+  .achievementItem {
+    font-size: 0.85rem;
+  }
+  
+  .experienceBadge {
+    padding: 0.5rem 0.75rem;
+  }
+  
+  .badgeYears {
+    font-size: 1.2rem;
+  }
+}
+
+/* Touch Device Optimizations */
+@media (hover: none) {
+  .profileCard:hover {
+    transform: none;
+  }
+  
+  .statCard:hover {
+    transform: none;
+  }
+  
+  .bioButton:hover {
+    transform: none;
+  }
+  
+  .achievementItem:hover {
+    transform: none;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .bgPattern,
+  .gradientOrb1,
+  .gradientOrb2,
+  .floatingIcon1,
+  .floatingIcon2,
+  .floatingIcon3,
+  .floatingIcon4,
+  .badgeIcon,
+  .statIcon,
+  .experienceBadge {
+    animation: none;
+  }
+  
+  .profileCard,
+  .bioButton,
+  .contactButton,
+  .socialLink {
+    transition: none;
+  }
+  
+  .bioSection {
+    transition: none;
+  }
+}
+
+/* Dark Mode */
+@media (prefers-color-scheme: dark) {
+  .profileSection {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  }
+  
+  .profileCard {
+    background: #1e293b;
+  }
+  
+  .sectionTitle {
+    color: #94a3b8;
+  }
+  
+  .officerName {
+    color: #f1f5f9;
+  }
+  
+  .statCard {
+    background: #0f172a;
+  }
+  
+  .statLabel {
+    color: #94a3b8;
+  }
+  
+  .bioText {
+    background: #0f172a;
+  }
+  
+  .bioText p {
+    color: #cbd5e1;
+  }
+  
+  .achievementItem {
+    background: #1e293b;
+    color: #e2e8f0;
+  }
+  
+  .achievementsTitle {
+    color: #f1f5f9;
+    border-bottom-color: #334155;
+  }
+  
+  .socialLink {
+    background: #0f172a;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .profileSection {
+    padding: 2rem;
+    background: white;
+  }
+  
+  .profileBackground,
+  .floatingElements,
+  .badgePulse,
+  .imageGlow,
+  .imageOverlay,
+  .experienceBadge,
+  .contactSection {
+    display: none;
+  }
+  
+  .profileCard {
+    box-shadow: none;
+    border: 1px solid #ddd;
+  }
+  
+  .bioButton {
+    display: none;
+  }
+  
+  .bioSection {
+    max-height: none;
+  }
+  
+  .bioContent {
+    display: block;
+  }
+}

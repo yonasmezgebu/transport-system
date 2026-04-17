@@ -1,0 +1,633 @@
+/* FeaturesSection.module.css - Fixed transitions and fade-in */
+
+/* CSS Custom Properties (Variables) */
+.featuresSection {
+  --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  --dark-bg: #0a0e27;
+  --card-bg: rgba(255, 255, 255, 0.05);
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.8);
+  --transition-smooth: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+                        border-color 0.4s ease,
+                        box-shadow 0.4s ease;
+}
+
+/* Main Section */
+.featuresSection {
+  position: relative;
+  padding: clamp(3rem, 8vw, 6rem) clamp(1rem, 4vw, 2rem);
+  background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
+  overflow: hidden;
+  min-height: 100vh;
+  container-type: inline-size;
+  container-name: features;
+}
+
+/* Animated Background */
+.featuresBackground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.bgPattern {
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background-image: 
+    radial-gradient(circle at 25% 50%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 75% 30%, rgba(118, 75, 162, 0.1) 0%, transparent 50%);
+  animation: rotate 60s linear infinite;
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.floatingShape1,
+.floatingShape2,
+.floatingShape3 {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.3;
+}
+
+.floatingShape1 {
+  width: min(300px, 50vw);
+  height: min(300px, 50vw);
+  background: #667eea;
+  top: -150px;
+  left: -150px;
+  animation: float 20s ease-in-out infinite;
+}
+
+.floatingShape2 {
+  width: min(400px, 60vw);
+  height: min(400px, 60vw);
+  background: #764ba2;
+  bottom: -200px;
+  right: -200px;
+  animation: float 25s ease-in-out infinite reverse;
+}
+
+.floatingShape3 {
+  width: min(200px, 40vw);
+  height: min(200px, 40vw);
+  background: #f093fb;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: pulse 10s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  33% { transform: translate(30px, -30px) rotate(120deg); }
+  66% { transform: translate(-20px, 20px) rotate(240deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.3; }
+  50% { transform: translate(-50%, -50%) scale(1.3); opacity: 0.5; }
+}
+
+/* Container */
+.featuresContainer {
+  position: relative;
+  z-index: 1;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Section Header */
+.featuresHeader {
+  text-align: center;
+  margin-bottom: clamp(2rem, 6vw, 4rem);
+  animation: fadeInUp 0.8s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.sectionBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  margin-bottom: 1.5rem;
+  font-size: clamp(0.85rem, 3vw, 0.9rem);
+  font-weight: 500;
+  color: var(--text-primary);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.badgeIcon {
+  font-size: 1.2rem;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+.featuresTitle {
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: clamp(0.5rem, 2vw, 1rem);
+  letter-spacing: -0.02em;
+}
+
+.gradientText {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.featuresSubtitle {
+  font-size: clamp(1rem, 3vw, 1.2rem);
+  color: var(--text-secondary);
+  max-width: min(600px, 90%);
+  margin: 0 auto 2rem;
+  line-height: 1.6;
+}
+
+.titleDecoration {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.5rem, 2vw, 1rem);
+}
+
+.decorationLine {
+  width: clamp(30px, 5vw, 50px);
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #667eea, transparent);
+}
+
+.decorationIcon {
+  font-size: 1rem;
+  color: #667eea;
+  animation: spin 4s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Features Grid - Modern CSS Grid with auto-fit */
+.featuresGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  gap: clamp(1rem, 3vw, 2rem);
+  margin-bottom: clamp(2rem, 6vw, 4rem);
+}
+
+/* Feature Card - FIXED VERSION */
+.featureCard {
+  position: relative;
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
+  border-radius: clamp(1rem, 3vw, 1.5rem);
+  padding: clamp(1.5rem, 4vw, 2rem);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  cursor: pointer;
+  
+  /* Start fully visible - NO OPACITY:0 */
+  opacity: 1;
+  transform: translateY(0);
+  
+  /* Single, consistent transition for hover effects only */
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+              border-color 0.4s ease,
+              box-shadow 0.4s ease;
+}
+
+/* Entry Animation - Separated from hover transitions */
+.featureCard.visible {
+  animation: cardFadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes cardFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Hover Effects - Clean and conflict-free */
+@media (hover: hover) {
+  .featureCard:hover {
+    transform: translateY(-10px) scale(1.02);
+    border-color: rgba(102, 126, 234, 0.5);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  }
+}
+
+@media (hover: none) {
+  .featureCard:active {
+    transform: scale(0.98);
+  }
+}
+
+/* Gradient backgrounds for cards - only on hover */
+.gradient1:hover { background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2)); }
+.gradient2:hover { background: linear-gradient(135deg, rgba(240, 147, 251, 0.2), rgba(245, 87, 108, 0.2)); }
+.gradient3:hover { background: linear-gradient(135deg, rgba(76, 175, 80, 0.2), rgba(139, 195, 74, 0.2)); }
+.gradient4:hover { background: linear-gradient(135deg, rgba(255, 152, 0, 0.2), rgba(255, 193, 7, 0.2)); }
+.gradient5:hover { background: linear-gradient(135deg, rgba(33, 150, 243, 0.2), rgba(3, 169, 244, 0.2)); }
+.gradient6:hover { background: linear-gradient(135deg, rgba(156, 39, 176, 0.2), rgba(103, 58, 183, 0.2)); }
+.gradient7:hover { background: linear-gradient(135deg, rgba(255, 87, 34, 0.2), rgba(255, 64, 129, 0.2)); }
+.gradient8:hover { background: linear-gradient(135deg, rgba(0, 150, 136, 0.2), rgba(38, 166, 154, 0.2)); }
+
+/* Card Background Effect */
+.cardBackground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.1) 0%, transparent 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+@media (hover: hover) {
+  .featureCard:hover .cardBackground {
+    opacity: 1;
+  }
+}
+
+/* Icon Section */
+.cardIconWrapper {
+  margin-bottom: clamp(1rem, 3vw, 1.5rem);
+}
+
+.iconCircle {
+  position: relative;
+  width: clamp(50px, 10vw, 70px);
+  height: clamp(50px, 10vw, 70px);
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+              background 0.3s ease;
+}
+
+@media (hover: hover) {
+  .featureCard:hover .iconCircle {
+    transform: scale(1.1) rotate(5deg);
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.4), rgba(118, 75, 162, 0.4));
+  }
+}
+
+.featureIcon {
+  font-size: clamp(1.5rem, 5vw, 2rem);
+  transition: transform 0.3s ease;
+}
+
+@media (hover: hover) {
+  .featureCard:hover .featureIcon {
+    transform: scale(1.2);
+  }
+}
+
+.iconPulse {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: rgba(102, 126, 234, 0.5);
+  animation: pulseRing 2s infinite;
+}
+
+@keyframes pulseRing {
+  0% { transform: scale(1); opacity: 0.5; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+
+/* Typography - No transitions needed for text */
+.featureTitle {
+  font-size: clamp(1.1rem, 4vw, 1.5rem);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
+}
+
+.featureDescription {
+  font-size: clamp(0.85rem, 3vw, 0.95rem);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+/* Stat Badge */
+.featureStat {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 50px;
+  width: fit-content;
+  transition: background 0.3s ease;
+}
+
+@media (hover: hover) {
+  .featureCard:hover .featureStat {
+    background: rgba(255, 255, 255, 0.1);
+  }
+}
+
+.statValue {
+  font-size: clamp(1rem, 3vw, 1.25rem);
+  font-weight: 700;
+  color: #667eea;
+}
+
+.statLabel {
+  font-size: clamp(0.75rem, 2.5vw, 0.85rem);
+  color: var(--text-secondary);
+}
+
+/* Hover Effect Line */
+.hoverLine {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 3px;
+  background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (hover: hover) {
+  .featureCard:hover .hoverLine {
+    width: 100%;
+  }
+}
+
+/* Particle Effects - Disabled on touch devices */
+@media (hover: hover) {
+  .particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: rgba(102, 126, 234, 0.6);
+    border-radius: 50%;
+    opacity: 0;
+  }
+
+  .featureCard:hover .particle {
+    animation: particleFloat 2s ease-out forwards;
+  }
+
+  .particle:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
+  .particle:nth-child(2) { top: 60%; left: 80%; animation-delay: 0.3s; }
+  .particle:nth-child(3) { top: 80%; left: 30%; animation-delay: 0.6s; }
+
+  @keyframes particleFloat {
+    0% {
+      opacity: 0;
+      transform: translateY(0) scale(0);
+    }
+    50% {
+      opacity: 1;
+      transform: translateY(-30px) scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-60px) scale(0);
+    }
+  }
+}
+
+/* Stats Bar */
+.statsBar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border-radius: clamp(1rem, 4vw, 2rem);
+  padding: clamp(1rem, 4vw, 2rem);
+  margin-top: clamp(1.5rem, 4vw, 2rem);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  flex-wrap: wrap;
+}
+
+.statItem {
+  text-align: center;
+  flex: 1;
+  min-width: 120px;
+}
+
+.statNumber {
+  font-size: clamp(1.5rem, 6vw, 2.5rem);
+  font-weight: 800;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  margin-bottom: 0.5rem;
+}
+
+.statDesc {
+  font-size: clamp(0.8rem, 3vw, 0.9rem);
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.statDivider {
+  width: 1px;
+  height: 50px;
+  background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+}
+
+/* Container Queries for responsive design */
+@container features (max-width: 768px) {
+  .featuresGrid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+@container features (max-width: 480px) {
+  .featureCard {
+    padding: 1.5rem;
+  }
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 768px) {
+  .statsBar {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .statDivider {
+    width: 80%;
+    height: 1px;
+  }
+  
+  .statItem {
+    width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .featuresGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .featureCard {
+    padding: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .sectionBadge {
+    padding: 0.35rem 0.75rem;
+    font-size: 0.8rem;
+  }
+  
+  .badgeIcon {
+    font-size: 1rem;
+  }
+  
+  .titleDecoration {
+    gap: 0.5rem;
+  }
+  
+  .decorationLine {
+    width: 30px;
+  }
+}
+
+/* Touch Device Optimizations */
+@media (hover: none) and (max-width: 768px) {
+  .featureCard {
+    padding: 1.25rem;
+  }
+  
+  .iconCircle {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .featureIcon {
+    font-size: 1.5rem;
+  }
+}
+
+/* Reduced Motion Preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .floatingShape1,
+  .floatingShape2,
+  .floatingShape3,
+  .bgPattern,
+  .featureCard.visible {
+    animation: none;
+  }
+  
+  .featureCard {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+  .featureCard {
+    border: 2px solid rgba(255, 255, 255, 0.3);
+  }
+  
+  .statNumber {
+    background: none;
+    color: #667eea;
+  }
+  
+  .gradientText {
+    background: none;
+    color: #667eea;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .featuresBackground,
+  .particles,
+  .iconPulse,
+  .hoverLine {
+    display: none;
+  }
+  
+  .featureCard {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    border: 1px solid #ccc;
+    background: white;
+    color: black;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  
+  .statNumber {
+    color: black;
+    background: none;
+  }
+  
+  .featureCard.visible {
+    animation: none;
+    opacity: 1;
+  }
+}
