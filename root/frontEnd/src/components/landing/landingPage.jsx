@@ -4,11 +4,7 @@ import HeroSection from './HeroSection'
 import TransportManagerProfile from './TransportManagerProfile'
 import FleetOfficerProfile from './FleetOfficerProfile'
 import ImageSlider from './ImageSlider' 
-import AboutSection from './AboutSection'
-import ServicesSection from './ServicesSection'
-import FeaturesSection from './FeaturesSection'
 import TestimonialsSection from './TestimonialsSection'
-import ContactSection from './ContactSection'
 import Footer from './Footer'
 import styles from '../../styles/LandingPage.module.css'
 
@@ -47,36 +43,28 @@ const LandingPage = () => {
           <HeroSection />
         </section>
         
+        <hr className="section-divider" />
+        
         <section id="profiles" className={styles.section}>
           <TransportManagerProfile />
         </section>
+        
+        <hr className="section-divider" />
         
         <section id="fleet-officer" className={styles.section}>
           <FleetOfficerProfile />
         </section>
         
+        <hr className="section-divider" />
+        
         <section id="gallery" className={`${styles.section} ${styles.sliderSection}`}>
           <ImageSlider speed={150} />
         </section>
         
-        <section id="about" className={styles.section}>
-          <AboutSection />
-        </section>
-        
-        <section id="services" className={styles.section}>
-          <ServicesSection />
-        </section>
-        
-        <section id="features" className={styles.section}>
-          <FeaturesSection />
-        </section>
+        <hr className="section-divider" />
         
         <section id="testimonials" className={styles.section}>
           <TestimonialsSection />
-        </section>
-        
-        <section id="contact" className={styles.section}>
-          <ContactSection />
         </section>
       </main>
       <Footer />

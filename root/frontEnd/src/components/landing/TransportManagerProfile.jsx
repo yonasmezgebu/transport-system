@@ -65,18 +65,10 @@ const TransportManagerProfile = () => {
 
   return (
     <section id="transport-manager" className={styles.profileSection} ref={sectionRef}>
-      {/* Animated Background */}
+      {/* White Background with Subtle Elements */}
       <div className={styles.profileBackground}>
-        <div className={styles.bgPattern}></div>
         <div className={styles.gradientOrb1}></div>
         <div className={styles.gradientOrb2}></div>
-        <div className={styles.gradientOrb3}></div>
-        <div className={styles.floatingElements}>
-          <div className={styles.floatingIcon1}>🚀</div>
-          <div className={styles.floatingIcon2}>📊</div>
-          <div className={styles.floatingIcon3}>🎯</div>
-          <div className={styles.floatingIcon4}>💡</div>
-        </div>
       </div>
 
       <div className={styles.container}>
@@ -90,12 +82,6 @@ const TransportManagerProfile = () => {
                 alt="Transport Manager - Biruk Tesfaye" 
                 className={styles.profileImage}
               />
-              <div className={styles.imageOverlay}>
-                <div className={styles.overlayContent}>
-                  <span className={styles.overlayIcon}>👔</span>
-                  <span>Leadership Excellence</span>
-                </div>
-              </div>
               <div className={styles.imageBorder}></div>
             </div>
             <div className={styles.experienceBadge}>
@@ -131,13 +117,13 @@ const TransportManagerProfile = () => {
               </div>
               <div className={styles.statCard}>
                 <div className={styles.statIcon}>🚌</div>
-                <div className={`${styles.statNumber} ${styles.statNumber2}`}>6</div>
+                <div className={`${styles.statNumber} ${styles.statNumber2}`}>25+</div>
                 <div className={styles.statLabel}>Fleet Vehicles</div>
                 <div className={styles.statProgress}></div>
               </div>
               <div className={styles.statCard}>
                 <div className={styles.statIcon}>👥</div>
-                <div className={`${styles.statNumber} ${styles.statNumber3}`}>50</div>
+                <div className={`${styles.statNumber} ${styles.statNumber3}`}>5,000+</div>
                 <div className={styles.statLabel}>Daily Commuters</div>
                 <div className={styles.statProgress}></div>
               </div>
@@ -166,9 +152,8 @@ const TransportManagerProfile = () => {
                       from manual operations to a fully digitalized platform.
                     </p>
                     <p>
-                      Under his leadership, the fleet has grown from 12 to 25 vehicles, serving over 
-                      5,000 students and staff daily. He is passionate about leveraging technology to 
-                      improve efficiency and reduce operational costs.
+                      Under his leadership, the fleet has grown to serve over 5,000 students and staff daily. 
+                      He is passionate about leveraging technology to improve efficiency and reduce operational costs.
                     </p>
                     
                     <div className={styles.achievementsSection}>

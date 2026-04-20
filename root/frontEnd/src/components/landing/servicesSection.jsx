@@ -1,95 +1,110 @@
-import React, { useEffect, useRef, useState } from 'react'
-import styles from '../../styles/ServicesSection.module.css'
+import React, { useEffect, useRef, useState } from 'react';
+import styles from '../../styles/ServicesSection.module.css';
+
+// Real images for each service
+// Copy this entire object
+const serviceImages = {
+  // Smartphone with GPS (Bus Tracking)
+  busTracking: 'https://images.unsplash.com/photo-1543269664-76bc3997d9ea?w=800&h=500&fit=crop',
+  
+  // Digital permits on tablet
+  digitalPermits: 'https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=800&h=500&fit=crop',
+  
+  // Smart city road asphalt (Route Planning)
+  routePlanning: 'https://images.pexels.com/photos/210182/pexels-photo-210182.jpeg?w=800&h=500&fit=crop',
+  
+  // Analytics dashboard
+  analyticsDashboard: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=500&fit=crop',
+  
+  // Trumpet/Megaphone (Smart Alerts) - WORKING LINK
+  smartAlerts: 'https://images.unsplash.com/photo-1596526131083-e8c633c948d2?w=800&h=500&fit=crop',
+  
+  // Digital payments
+  digitalPayments: 'https://images.unsplash.com/photo-1625225233840-695456021cde?w=800&h=500&fit=crop'
+};
 
 const services = [
   {
-    icon: '🚌',
+    id: 1,
     title: 'Bus Tracking',
-    description: 'Real-time bus location tracking and arrival predictions with GPS accuracy.',
+    description: 'Real-time bus location tracking and arrival predictions with GPS accuracy. Our advanced tracking system provides live location updates every 2 seconds, ensuring you always know exactly where your bus is. The predictive arrival algorithm factors in current traffic conditions, historical route data, and real-time weather patterns to deliver accurate ETAs within 30 seconds of actual arrival.',
+    image: serviceImages.busTracking,
     link: '#',
-    gradient: 'gradient1',
-    features: ['Live Location', 'Arrival Time', 'Route Map']
+    features: ['Live Location', 'Arrival Time', 'Route Map', 'Traffic Integration', 'Favorite Routes']
   },
   {
-    icon: '🎫',
+    id: 2,
     title: 'Digital Permits',
-    description: 'Online transport request and approval system for seamless campus commute.',
+    description: 'Online transport request and approval system for seamless campus commute. Submit transport requests from any device with our streamlined digital workflow that reduces processing time from days to minutes. Administrators can review, approve, or modify requests with real-time status updates and automated email notifications.',
+    image: serviceImages.digitalPermits,
     link: '#',
-    gradient: 'gradient2',
-    features: ['Instant Approval', 'Digital Pass', 'Easy Renewal']
+    features: ['Instant Approval', 'Digital Pass', 'Easy Renewal', 'Audit Trail', 'Bulk Processing']
   },
   {
-    icon: '🗺️',
+    id: 3,
     title: 'Route Planning',
-    description: 'Optimized routes for efficient campus commute with AI-powered suggestions.',
+    description: 'Optimized routes for efficient campus commute with AI-powered suggestions. Our machine learning algorithms analyze thousands of data points including historical ridership patterns, peak demand periods, special events, and construction schedules to generate the most efficient route networks.',
+    image: serviceImages.routePlanning,
     link: '#',
-    gradient: 'gradient3',
-    features: ['AI Optimized', 'Multiple Routes', 'Traffic Updates']
+    features: ['AI Optimized', 'Multiple Routes', 'Traffic Updates', 'Scenario Simulation', 'Capacity Balancing']
   },
   {
-    icon: '📊',
+    id: 4,
     title: 'Analytics Dashboard',
-    description: 'Comprehensive reports on fleet performance and usage patterns.',
+    description: 'Comprehensive reports on fleet performance and usage patterns. Transform raw operational data into actionable insights with our interactive dashboard featuring customizable visualizations and drill-down capabilities. Track key performance indicators including on-time performance, passenger load factors, and fuel efficiency.',
+    image: serviceImages.analyticsDashboard,
     link: '#',
-    gradient: 'gradient4',
-    features: ['Real-time Stats', 'Usage Reports', 'Performance Metrics']
+    features: ['Real-time Stats', 'Usage Reports', 'Performance Metrics', 'Custom Dashboards', 'Predictive Analytics']
   },
   {
-    icon: '🔔',
+    id: 5,
     title: 'Smart Alerts',
-    description: 'Real-time notifications for schedule changes and important updates.',
+    description: 'Real-time notifications for schedule changes and important updates. Our intelligent notification engine delivers critical information through your preferred communication channels including push notifications, SMS, email, or in-app messages. Advanced filtering ensures you receive only relevant alerts.',
+    image: serviceImages.smartAlerts,
     link: '#',
-    gradient: 'gradient5',
-    features: ['Push Notifications', 'SMS Alerts', 'Email Updates']
+    features: ['Push Notifications', 'SMS Alerts', 'Email Updates', 'Geofencing', 'Emergency Broadcast']
   },
   {
-    icon: '💳',
+    id: 6,
     title: 'Digital Payments',
-    description: 'Secure online payment for transport services with multiple options.',
+    description: 'Secure online payment for transport services with multiple options. Our PCI-compliant payment gateway supports credit cards, debit cards, digital wallets, and campus account integration for a seamless checkout experience. Automated receipt generation provides complete financial visibility.',
+    image: serviceImages.digitalPayments,
     link: '#',
-    gradient: 'gradient6',
-    features: ['Secure Payment', 'Multiple Methods', 'Transaction History']
+    features: ['Secure Payment', 'Multiple Methods', 'Transaction History', 'Recurring Billing', 'Financial Reports']
   }
-]
+];
 
 const ServicesSection = () => {
-  const [hoveredIndex, setHoveredIndex] = useState(null)
-  const sectionRef = useRef(null)
-  const cardsRef = useRef([])
+  const [hoveredIndex, setHoveredIndex] = useState(null);
+  const [visibleServices, setVisibleServices] = useState([]);
+  const sectionRef = useRef(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add(styles.visible)
+            const serviceId = parseInt(entry.target.dataset.id);
+            setVisibleServices(prev => [...new Set([...prev, serviceId])]);
           }
-        })
+        });
       },
-      { threshold: 0.1, rootMargin: '50px' }
-    )
+      { threshold: 0.2, rootMargin: '50px' }
+    );
 
-    cardsRef.current.forEach((card) => {
-      if (card) observer.observe(card)
-    })
+    const serviceElements = document.querySelectorAll(`.${styles.serviceCard}`);
+    serviceElements.forEach(el => observer.observe(el));
 
-    return () => observer.disconnect()
-  }, [])
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <section id="services" className={styles.servicesSection} ref={sectionRef}>
-      {/* Animated Background */}
-      <div className={styles.servicesBackground}>
-        <div className={styles.gradientOrb1}></div>
-        <div className={styles.gradientOrb2}></div>
-        <div className={styles.gradientOrb3}></div>
-      </div>
-
       <div className={styles.servicesContainer}>
         {/* Section Header */}
         <div className={styles.servicesHeader}>
           <div className={styles.sectionBadge}>
-            <span className={styles.badgeIcon}>✨</span>
+            <span className={styles.badgeIcon}>✦</span>
             <span>What We Offer</span>
           </div>
           <h2 className={styles.servicesTitle}>
@@ -110,49 +125,68 @@ const ServicesSection = () => {
         <div className={styles.servicesGrid}>
           {services.map((service, index) => (
             <div
-              key={index}
-              ref={el => cardsRef.current[index] = el}
-              className={`${styles.serviceCard} ${styles[service.gradient]} ${hoveredIndex === index ? styles.cardHovered : ''}`}
+              key={service.id}
+              data-id={service.id}
+              ref={el => {
+                if (el) {
+                  const cardsRef = document.querySelectorAll(`.${styles.serviceCard}`);
+                  if (cardsRef[index]) return;
+                }
+              }}
+              className={`${styles.serviceCard} ${visibleServices.includes(service.id) ? styles.visible : ''} ${hoveredIndex === index ? styles.cardHovered : ''}`}
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
               style={{ transitionDelay: `${index * 0.1}s` }}
             >
-              <div className={styles.cardGlow}></div>
-              
-              <div className={styles.cardIcon}>
-                <div className={styles.iconWrapper}>
-                  <span className={styles.iconEmoji}>{service.icon}</span>
-                  <div className={styles.iconRing}></div>
+              {/* Image Section */}
+              <div className={styles.cardImageWrapper}>
+                <img 
+                  src={service.image} 
+                  alt={service.title}
+                  className={styles.cardImage}
+                  loading="lazy"
+                />
+                <div className={styles.imageOverlay}></div>
+                <div className={styles.serviceNumber}>
+                  <span>0{service.id}</span>
                 </div>
               </div>
-              
-              <h3 className={styles.cardTitle}>{service.title}</h3>
-              <p className={styles.cardDescription}>{service.description}</p>
-              
-              <div className={styles.cardFeatures}>
-                {service.features.map((feature, idx) => (
-                  <div key={idx} className={styles.featureItem}>
-                    <span className={styles.featureDot}>•</span>
-                    <span>{feature}</span>
-                  </div>
-                ))}
+
+              {/* Content Section */}
+              <div className={styles.cardContent}>
+                <h3 className={styles.cardTitle}>{service.title}</h3>
+                <p className={styles.cardDescription}>{service.description}</p>
+                
+                {/* Divider */}
+                <div className={styles.cardDivider}></div>
+                
+                {/* Features List */}
+                <div className={styles.cardFeatures}>
+                  {service.features.map((feature, idx) => (
+                    <div key={idx} className={styles.featureItem}>
+                      <span className={styles.featureDot}>✦</span>
+                      <span className={styles.featureText}>{feature}</span>
+                    </div>
+                  ))}
+                </div>
+                
+                {/* Learn More Link */}
+                <a href={service.link} className={styles.cardLink}>
+                  <span>Learn More</span>
+                  <svg className={styles.linkArrow} viewBox="0 0 24 24" fill="none">
+                    <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </a>
               </div>
               
-              <a href={service.link} className={styles.cardLink}>
-                <span>Learn More</span>
-                <svg className={styles.linkArrow} viewBox="0 0 24 24" fill="none">
-                  <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </a>
-              
-              <div className={styles.cardBorder}></div>
+              <div className={styles.hoverLine}></div>
             </div>
           ))}
         </div>
-        
+
         {/* Call to Action */}
         <div className={styles.servicesCTA}>
-          <p>Need a custom solution for your department?</p>
+          <p className={styles.ctaText}>Need a custom solution for your department?</p>
           <button className={styles.ctaButton}>
             Contact Our Team
             <svg viewBox="0 0 24 24" fill="none">
@@ -162,7 +196,7 @@ const ServicesSection = () => {
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default ServicesSection
+export default ServicesSection;

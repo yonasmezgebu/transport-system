@@ -9,6 +9,10 @@ import LandingPage from './components/landing/LandingPage'
 import Navbar from './components/common/Navbar'
 import Sidebar from './components/common/Sidebar'
 import LoadingSpinner from './components/common/LoadingSpinner'
+import AboutPage from './components/landing/pages/AboutPage'
+import ServicesPage from './components/landing/pages/ServicesPage'
+import FeaturesPage from './components/landing/pages/FeaturesPage'
+import ContactPage from './components/landing/pages/ContactPage'
 
 
 // Lazy load components
@@ -97,6 +101,10 @@ function AppRoutes() {
     <Routes>
       {/* Public Landing Page */}
       <Route path="/" element={<LandingPage />} />
+      <Route path="/about" element={<AboutPage />} />
+      <Route path="/services" element={<ServicesPage />} />
+      <Route path="/features" element={<FeaturesPage />} />
+      <Route path="/contact" element={<ContactPage />} />
       
       {/* Auth Routes */}
       <Route path="/login" element={<Login />} />

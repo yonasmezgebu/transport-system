@@ -1,108 +1,101 @@
-import React, { useState, useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import styles from '../../styles/header.module.css'
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Search, Menu, X, LogIn } from 'lucide-react';
+import styles from '../../styles/Header.module.css';
+// Make sure this path is correct for your project structure
+import busLogo from '../../assets/images/bus.png';
 
 const Header = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [isScrolled, setIsScrolled] = useState(false)
-  const [searchQuery, setSearchQuery] = useState('')
-  const [selectedLanguage, setSelectedLanguage] = useState('EN')
-  const navigate = useNavigate()
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const location = useLocation();
 
   const navLinks = [
-    { name: 'Home', href: '#home' },
-    { name: 'About Us', href: '#about' },
-    { name: 'Services', href: '#services' },
-    { name: 'Features', href: '#features' },
-    { name: 'Testimonials', href: '#testimonials' },
-    { name: 'Contact', href: '#contact' }
-  ]
+    { name: 'About Us', href: '/about' },
+    { name: 'Services', href: '/services' },
+    { name: 'Features', href: '/features' },
+    { name: 'Contact', href: '/contact' }
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50)
-    }
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const handleSearch = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     if (searchQuery.trim()) {
-      console.log('Searching for:', searchQuery)
-      // Implement search functionality
+      console.log('Searching for:', searchQuery);
+      setSearchQuery('');
+      setIsMenuOpen(false);
     }
-  }
-
-  const handleLanguageChange = (e) => {
-    setSelectedLanguage(e.target.value)
-    // Implement language change functionality
-  }
+  };
 
   return (
     <>
       <header className={`${styles.header} ${isScrolled ? styles.scrolled : ''}`}>
         <div className={styles.container}>
           <nav className={styles.navbar}>
-            {/* Logo */}
+            {/* Logo with Local Bus Image */}
             <Link to="/" className={styles.logo}>
               <div className={styles.logoIcon}>
-                <span className={styles.logoEmoji}>🚌</span>
+                <img 
+                  src={busLogo}
+                  alt="Injibara Transport Bus" 
+                  className={styles.busImage}
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=50&h=50&fit=crop';
+                  }}
+                />
               </div>
               <div className={styles.logoText}>
                 <h1 className={styles.logoTitle}>Injibara Transport</h1>
-                <p className={styles.logoSubtitle}>University Transport System</p>
               </div>
             </Link>
 
             {/* Desktop Navigation */}
             <div className={styles.desktopNav}>
               {navLinks.map((link) => (
-                <a
+                <Link
                   key={link.name}
-                  href={link.href}
-                  className={styles.navLink}
-                  onClick={(e) => {
-                    e.preventDefault()
-                    const element = document.querySelector(link.href)
-                    if (element) {
-                      element.scrollIntoView({ behavior: 'smooth' })
-                    }
-                  }}
+                  to={link.href}
+                  className={`${styles.navLink} ${location.pathname === link.href ? styles.active : ''}`}
                 >
                   {link.name}
-                </a>
+                </Link>
               ))}
             </div>
 
             {/* Desktop Actions */}
             <div className={styles.actions}>
-              <select 
-                className={styles.languageSelector}
-                value={selectedLanguage}
-                onChange={handleLanguageChange}
-              >
-                <option value="EN">EN</option>
-                <option value="AM">አማ</option>
-              </select>
-              
+              {/* Search Bar */}
               <form onSubmit={handleSearch} className={styles.searchForm}>
+                <Search size={18} className={styles.searchIcon} />
                 <input
                   type="text"
                   placeholder="Search..."
-                  className={styles.searchInput}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
+                  className={styles.searchInput}
                 />
-                <button type="submit" className={styles.searchBtn}>
-                  🔍
-                </button>
               </form>
               
-              <Link to="/login">
-                <button className={styles.loginBtn}>
-                  Login <span className={styles.loginArrow}>→</span>
-                </button>
+              {/* Login Button */}
+              <Link to="/login" className={styles.loginLink}>
+                <motion.button 
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className={styles.loginBtn}
+                >
+                  <LogIn size={18} />
+                  Login
+                </motion.button>
               </Link>
             </div>
 
@@ -112,81 +105,93 @@ const Header = () => {
               className={styles.menuBtn}
               aria-label="Toggle menu"
             >
-              <div className={`${styles.hamburger} ${isMenuOpen ? styles.active : ''}`}>
-                <span></span>
-                <span></span>
-                <span></span>
-              </div>
+              {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
             </button>
           </nav>
         </div>
       </header>
 
       {/* Mobile Menu Overlay */}
-      <div className={`${styles.overlay} ${isMenuOpen ? styles.overlayActive : ''}`} onClick={() => setIsMenuOpen(false)}></div>
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className={styles.overlay} 
+            onClick={() => setIsMenuOpen(false)}
+          />
+        )}
+      </AnimatePresence>
       
       {/* Mobile Menu */}
-      <div className={`${styles.mobileMenu} ${isMenuOpen ? styles.mobileMenuOpen : ''}`}>
-        <div className={styles.mobileMenuHeader}>
-          <div className={styles.mobileLogo}>
-            <span className={styles.mobileLogoEmoji}>🚌</span>
-            <span className={styles.mobileLogoText}>Injibara Transport</span>
-          </div>
-          <button onClick={() => setIsMenuOpen(false)} className={styles.closeBtn}>✕</button>
-        </div>
-        
-        <div className={styles.mobileMenuContent}>
-          {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              className={styles.mobileNavLink}
-              onClick={(e) => {
-                e.preventDefault()
-                const element = document.querySelector(link.href)
-                if (element) {
-                  element.scrollIntoView({ behavior: 'smooth' })
-                }
-                setIsMenuOpen(false)
-              }}
-            >
-              {link.name}
-            </a>
-          ))}
-          
-          <div className={styles.mobileActions}>
-            <select 
-              className={styles.mobileLanguageSelector}
-              value={selectedLanguage}
-              onChange={handleLanguageChange}
-            >
-              <option value="EN">English (EN)</option>
-              <option value="AM">አማርኛ (AM)</option>
-            </select>
-            
-            <form onSubmit={handleSearch} className={styles.mobileSearchForm}>
-              <input
-                type="text"
-                placeholder="Search..."
-                className={styles.mobileSearchInput}
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-              <button type="submit" className={styles.mobileSearchBtn}>
-                🔍
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div 
+            initial={{ x: '100%' }}
+            animate={{ x: 0 }}
+            exit={{ x: '100%' }}
+            transition={{ type: 'spring', bounce: 0, duration: 0.4 }}
+            className={styles.mobileMenu}
+          >
+            <div className={styles.mobileMenuHeader}>
+              <div className={styles.mobileLogo}>
+                <img 
+                  src={busLogo}  // Fixed: use the same imported image
+                  alt="Injibara Transport Bus" 
+                  className={styles.mobileBusImage}
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=40&h=40&fit=crop';
+                  }}
+                />
+                <span className={styles.mobileLogoText}>Injibara Transport</span>
+              </div>
+              <button 
+                onClick={() => setIsMenuOpen(false)} 
+                className={styles.closeMenuBtn}
+              >
+                <X size={24} />
               </button>
-            </form>
+            </div>
             
-            <Link to="/login" onClick={() => setIsMenuOpen(false)}>
-              <button className={styles.mobileLoginBtn}>
-                Login →
-              </button>
-            </Link>
-          </div>
-        </div>
-      </div>
+            <div className={styles.mobileMenuContent}>
+              {navLinks.map((link) => (
+                <Link
+                  key={link.name}
+                  to={link.href}
+                  onClick={() => setIsMenuOpen(false)}
+                  className={styles.mobileNavLink}
+                >
+                  {link.name}
+                </Link>
+              ))}
+              
+              <div className={styles.mobileActions}>
+                <form onSubmit={handleSearch} className={styles.mobileSearchForm}>
+                  <Search size={20} className={styles.mobileSearchIcon} />
+                  <input
+                    type="text"
+                    placeholder="Search..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className={styles.mobileSearchInput}
+                  />
+                </form>
+                
+                <Link to="/login" onClick={() => setIsMenuOpen(false)} className={styles.mobileLoginLink}>
+                  <button className={styles.mobileLoginBtn}>
+                    <LogIn size={20} />
+                    Login
+                  </button>
+                </Link>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

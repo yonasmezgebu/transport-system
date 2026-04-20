@@ -10,7 +10,25 @@ body {
   background: var(--background);
   color: var(--text);
   line-height: 1.5;
-  transition: background 0.3s ease, color 0.3s ease;
+  transition: var(--transition-slow);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Horizontal Section Dividers */
+.section-divider {
+  width: 100%;
+  max-width: var(--container-xl);
+  margin: 0 auto;
+  border: 0;
+  border-top: 1px solid var(--border);
+  opacity: 0.5;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--border);
+  margin: var(--spacing-8) 0;
 }
 
 /* Layout */

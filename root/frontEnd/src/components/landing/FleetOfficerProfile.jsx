@@ -8,7 +8,6 @@ const FleetOfficerProfile = () => {
   const [showBio, setShowBio] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
   const sectionRef = useRef(null)
-  const statsRef = useRef([])
 
   const toggleBio = () => {
     setShowBio(!showBio)
@@ -19,7 +18,6 @@ const FleetOfficerProfile = () => {
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true)
-          // Animate stats counter
           animateStats()
         }
       },
@@ -36,7 +34,7 @@ const FleetOfficerProfile = () => {
   const animateStats = () => {
     const stats = [
       { element: document.querySelector(`.${styles.statNumber1}`), target: 10, suffix: '+' },
-      { element: document.querySelector(`.${styles.statNumber2}`), target: 98, suffix: '%' },
+      { element: document.querySelector(`.${styles.statNumber2}`), target: 24, suffix: '/7' },
       { element: document.querySelector(`.${styles.statNumber3}`), target: 500, suffix: 'K+' }
     ]
 
@@ -66,17 +64,10 @@ const FleetOfficerProfile = () => {
 
   return (
     <section id="fleet-officer" className={styles.profileSection} ref={sectionRef}>
-      {/* Animated Background */}
+      {/* White Background with Subtle Elements */}
       <div className={styles.profileBackground}>
-        <div className={styles.bgPattern}></div>
         <div className={styles.gradientOrb1}></div>
         <div className={styles.gradientOrb2}></div>
-        <div className={styles.floatingElements}>
-          <div className={styles.floatingIcon1}>🚌</div>
-          <div className={styles.floatingIcon2}>⚙️</div>
-          <div className={styles.floatingIcon3}>📊</div>
-          <div className={styles.floatingIcon4}>🔧</div>
-        </div>
       </div>
 
       <div className={styles.container}>
@@ -90,12 +81,6 @@ const FleetOfficerProfile = () => {
                 alt="Fleet Officer - Meron Alemu" 
                 className={styles.profileImage}
               />
-              <div className={styles.imageOverlay}>
-                <div className={styles.overlayContent}>
-                  <span className={styles.overlayIcon}>👤</span>
-                  <span>Fleet Operations Expert</span>
-                </div>
-              </div>
               <div className={styles.imageBorder}></div>
             </div>
             <div className={styles.experienceBadge}>
@@ -131,13 +116,13 @@ const FleetOfficerProfile = () => {
               </div>
               <div className={styles.statCard}>
                 <div className={styles.statIcon}>✅</div>
-                <div className={`${styles.statNumber} ${styles.statNumber2}`}>24</div>
+                <div className={`${styles.statNumber} ${styles.statNumber2}`}>24/7</div>
                 <div className={styles.statLabel}>Fleet Uptime</div>
                 <div className={styles.statProgress}></div>
               </div>
               <div className={styles.statCard}>
                 <div className={styles.statIcon}>🛣️</div>
-                <div className={`${styles.statNumber} ${styles.statNumber3}`}>500</div>
+                <div className={`${styles.statNumber} ${styles.statNumber3}`}>500K+</div>
                 <div className={styles.statLabel}>KM Managed</div>
                 <div className={styles.statProgress}></div>
               </div>
@@ -187,12 +172,21 @@ const FleetOfficerProfile = () => {
                         ))}
                       </div>
                     </div>
+
+                    {/* Quote Section */}
+                    <div className={styles.quoteSection}>
+                      <div className={styles.quoteIcon}>"</div>
+                      <p className={styles.quoteText}>
+                        Efficient fleet management is the backbone of reliable university transportation.
+                      </p>
+                      <div className={styles.quoteAuthor}>- Meron Alemu</div>
+                    </div>
                   </div>
                 </div>
               )}
             </div>
 
-            {/* Contact Button */}
+            {/* Contact Section */}
             <div className={styles.contactSection}>
               <button className={styles.contactButton}>
                 <span>📧</span>
