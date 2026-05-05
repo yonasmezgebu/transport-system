@@ -1,29 +1,51 @@
 import React, { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../../contexts/AuthContext'
+import api from '../../services/api'
 
-const Login = () => {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+const Register = () => {
+  const [formData, setFormData] = useState({
+    full_name: '',
+    email: '',
+    phone: '',
+    password: '',
+    confirmPassword: ''
+  })
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
-  const { login } = useAuth()
   const navigate = useNavigate()
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    })
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     setError('')
+    
+    if (formData.password !== formData.confirmPassword) {
+      setError('Passwords do not match')
+      return
+    }
+
     setLoading(true)
 
-    const result = await login(email, password)
-    
-    if (result.success) {
-      navigate('/dashboard')
-    } else {
-      setError(result.error || 'Login failed. Please check your credentials.')
+    try {
+      await api.post('/auth/register-staff', {
+        full_name: formData.full_name,
+        email: formData.email,
+        phone: formData.phone,
+        password: formData.password
+      })
+      navigate('/login', { state: { message: 'Registration successful! You can now login.' } })
+    } catch (err) {
+      setError(err.response?.data?.error || 'Registration failed. Please try again.')
+    } finally {
+      setLoading(false)
     }
-    
-    setLoading(false)
   }
 
   return (
@@ -32,7 +54,7 @@ const Login = () => {
         :root {
           --primary: #2563eb;
           --primary-dark: #1d4ed8;
-          --bg-page: #ffffff; /* Clean white background */
+          --bg-page: #ffffff;
           --bg-card: #ffffff;
           --text-main: #1e293b;
           --text-muted: #64748b;
@@ -52,7 +74,7 @@ const Login = () => {
           color: var(--text-main);
         }
 
-        .login-container {
+        .register-container {
           min-height: 100vh;
           display: flex;
           align-items: center;
@@ -60,30 +82,29 @@ const Login = () => {
           padding: 24px;
         }
 
-        .login-card {
+        .register-card {
           width: 100%;
-          max-width: 420px;
+          max-width: 480px;
           padding: 40px;
           border-radius: 16px;
           background: var(--bg-card);
-          /* Subtle shadow to separate white card from white background */
           box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
           border: 1px solid var(--border);
         }
 
-        .login-header {
+        .register-header {
           text-align: center;
           margin-bottom: 32px;
         }
 
-        .login-header h1 {
+        .register-header h1 {
           font-size: 1.75rem;
           font-weight: 800;
           color: var(--text-main);
           letter-spacing: -0.025em;
         }
 
-        .login-header h2 {
+        .register-header h2 {
           font-size: 0.95rem;
           color: var(--text-muted);
           font-weight: 400;
@@ -119,23 +140,6 @@ const Login = () => {
           box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
         }
 
-        .form-links {
-          display: flex;
-          justify-content: flex-end;
-          margin-bottom: 24px;
-        }
-
-        .forgot-password {
-          font-size: 0.875rem;
-          color: var(--primary);
-          text-decoration: none;
-          font-weight: 500;
-        }
-
-        .forgot-password:hover {
-          text-decoration: underline;
-        }
-
         .btn-primary {
           width: 100%;
           padding: 14px;
@@ -147,6 +151,7 @@ const Login = () => {
           font-weight: 600;
           cursor: pointer;
           transition: background-color 0.2s ease;
+          margin-top: 10px;
         }
 
         .btn-primary:hover:not(:disabled) {
@@ -169,21 +174,25 @@ const Login = () => {
           text-align: center;
         }
 
-        .login-footer {
-          margin-top: 32px;
-          padding-top: 24px;
-          border-top: 1px solid var(--border);
+        .register-footer {
+          margin-top: 24px;
           text-align: center;
+          font-size: 0.875rem;
+          color: var(--text-muted);
         }
 
-        .demo-box {
-          font-size: 0.8rem;
-          color: var(--text-muted);
-          line-height: 1.6;
+        .register-footer a {
+          color: var(--primary);
+          text-decoration: none;
+          font-weight: 600;
+        }
+
+        .register-footer a:hover {
+          text-decoration: underline;
         }
 
         @media (max-width: 480px) {
-          .login-card {
+          .register-card {
             padding: 24px;
             border: none;
             box-shadow: none;
@@ -191,46 +200,82 @@ const Login = () => {
         }
       `}</style>
 
-      <div className="login-container">
-        <div className="login-card">
-          <div className="login-header">
+      <div className="register-container">
+        <div className="register-card">
+          <div className="register-header">
             <h1>Injibara University</h1>
-            <h2>Transport Management System</h2>
+            <h2>Staff Registration Portal</h2>
           </div>
         
           {error && <div className="alert-error">{error}</div>}
         
           <form onSubmit={handleSubmit}>
             <div className="form-group">
+              <label className="form-label">Full Name</label>
+              <input
+                type="text"
+                name="full_name"
+                className="form-input"
+                value={formData.full_name}
+                onChange={handleChange}
+                required
+                placeholder="Abebe Kebede"
+              />
+            </div>
+
+            <div className="form-group">
               <label className="form-label">Email Address</label>
               <input
                 type="email"
+                name="email"
                 className="form-input"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                value={formData.email}
+                onChange={handleChange}
                 required
-                placeholder="email@example.com"
+                placeholder="staff@example.com"
                 autoComplete="email"
               />
             </div>
           
             <div className="form-group">
+              <label className="form-label">Phone Number</label>
+              <input
+                type="tel"
+                name="phone"
+                className="form-input"
+                value={formData.phone}
+                onChange={handleChange}
+                required
+                placeholder="0912345678"
+              />
+            </div>
+
+            <div className="form-group">
               <label className="form-label">Password</label>
               <input
                 type="password"
+                name="password"
                 className="form-input"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                value={formData.password}
+                onChange={handleChange}
                 required
                 placeholder="••••••••"
-                autoComplete="current-password"
+                minLength={6}
               />
             </div>
-          
-            <div className="form-links">
-              <Link to="/reset-password" className="forgot-password">
-                Forgot password?
-              </Link>
+
+            <div className="form-group">
+              <label className="form-label">Confirm Password</label>
+              <input
+                type="password"
+                name="confirmPassword"
+                className="form-input"
+                value={formData.confirmPassword}
+                onChange={handleChange}
+                required
+                placeholder="••••••••"
+                minLength={6}
+              />
             </div>
           
             <button 
@@ -238,18 +283,12 @@ const Login = () => {
               className="btn-primary"
               disabled={loading}
             >
-              {loading ? 'Signing in...' : 'Sign In'}
+              {loading ? 'Registering...' : 'Register as Staff'}
             </button>
           </form>
         
-          <div className="login-footer">
-            <div className="demo-box">
-              <p><strong>Demo Accounts:</strong></p>
-              <p>admin@transport.com / Admin@123</p>
-            </div>
-            <p style={{ marginTop: '16px' }}>
-              Don't have an account? <Link to="/register" style={{ color: 'var(--primary)', fontWeight: '600', textDecoration: 'none' }}>Register here</Link>
-            </p>
+          <div className="register-footer">
+            <p>Already have an account? <Link to="/login">Login here</Link></p>
           </div>
         </div>
       </div>
@@ -257,4 +296,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default Register

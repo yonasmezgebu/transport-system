@@ -97,6 +97,18 @@ const Header = () => {
                   Login
                 </motion.button>
               </Link>
+
+              {/* Register Button */}
+              <Link to="/register" className={styles.loginLink} style={{ marginLeft: '10px' }}>
+                <motion.button 
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className={styles.loginBtn}
+                  style={{ backgroundColor: '#10b981' }}
+                >
+                  Register
+                </motion.button>
+              </Link>
             </div>
 
             {/* Mobile Menu Button */}
@@ -183,6 +195,12 @@ const Header = () => {
                   <button className={styles.mobileLoginBtn}>
                     <LogIn size={20} />
                     Login
+                  </button>
+                </Link>
+
+                <Link to="/register" onClick={() => setIsMenuOpen(false)} className={styles.mobileLoginLink} style={{ marginTop: '10px' }}>
+                  <button className={styles.mobileLoginBtn} style={{ backgroundColor: '#10b981' }}>
+                    Register
                   </button>
                 </Link>
               </div>

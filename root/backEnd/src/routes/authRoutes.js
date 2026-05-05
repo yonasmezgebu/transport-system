@@ -9,7 +9,8 @@ const {
     initiateTwoFactor,
     verifyTwoFactor,
     changePassword,
-    forgotPassword
+    forgotPassword,
+    registerStaff
 } = require('../controllers/authController');
 const { authenticate } = require('../middleware/auth');
 const { loginLimiter, resetLimiter } = require('../middleware/rateLimiter');
@@ -37,5 +38,8 @@ router.post('/2fa/verify', verifyTwoFactor);
 router.post('/change-password', authenticate, changePassword);
 router.post('/forgot-password', resetLimiter, forgotPassword);
 router.post('/reset-password', resetLimiter, resetPassword);
+
+// Registration
+router.post('/register-staff', loginLimiter, registerStaff);
 
 module.exports = router;

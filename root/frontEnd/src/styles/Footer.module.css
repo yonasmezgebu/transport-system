@@ -1,10 +1,10 @@
 /* Footer.module.css - White Background Professional Version */
 
 .footer {
-  background: #ffffff;
+  background: #111827; /* Professional Dark/Black Background */
   padding-top: 4rem;
   padding-bottom: 2rem;
-  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
   position: relative;
   overflow: hidden;
 }
@@ -34,7 +34,7 @@
   display: grid;
   grid-template-columns: 2fr 1fr 1fr 1.5fr;
   gap: 3rem;
-  margin-bottom: 4rem;
+  margin-bottom: 1rem;
 }
 
 @media (max-width: 1024px) {
@@ -84,14 +84,11 @@
   margin: 0;
   font-size: 1.5rem;
   font-weight: 700;
-  background: linear-gradient(135deg, #1f2937, #3b82f6);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: #ffffff;
 }
 
 .brandDescription {
-  color: #6b7280;
+  color: #9ca3af;
   line-height: 1.6;
   margin: 0;
   font-size: 0.875rem;
@@ -121,7 +118,7 @@
   margin: 0;
   font-size: 1rem;
   font-weight: 600;
-  color: #1f2937;
+  color: #ffffff;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
@@ -140,7 +137,7 @@
 }
 
 .linkItem {
-  color: #6b7280;
+  color: #9ca3af;
   text-decoration: none;
   transition: all 0.2s ease;
   font-size: 0.875rem;
@@ -175,7 +172,7 @@
 }
 
 .newsletterText {
-  color: #6b7280;
+  color: #9ca3af;
   margin: 0;
   font-size: 0.875rem;
   line-height: 1.5;
@@ -189,11 +186,11 @@
 .emailInput {
   flex: 1;
   padding: 0.75rem 1rem;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 0.5rem 0 0 0.5rem;
   outline: none;
-  background: #ffffff;
-  color: #1f2937;
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
   font-size: 0.875rem;
   transition: all 0.2s ease;
 }
@@ -247,7 +244,7 @@
   margin: 0 0 0.75rem 0;
   font-size: 0.875rem;
   font-weight: 600;
-  color: #1f2937;
+  color: #ffffff;
 }
 
 .socialLinks {
@@ -261,9 +258,9 @@
   justify-content: center;
   width: 36px;
   height: 36px;
-  background: rgba(59, 130, 246, 0.05);
+  background: rgba(255, 255, 255, 0.05);
   border-radius: 50%;
-  color: #6b7280;
+  color: #9ca3af;
   transition: all 0.3s ease;
   text-decoration: none;
 }
@@ -274,59 +271,6 @@
   color: white;
 }
 
-/* Stats Section */
-.statsSection {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  padding: 2rem 0;
-  border-top: 1px solid rgba(0, 0, 0, 0.08);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-  margin-bottom: 2rem;
-}
-
-.statItem {
-  text-align: center;
-  flex: 1;
-  min-width: 120px;
-  margin-bottom: 1rem;
-  transition: transform 0.3s ease;
-}
-
-.statItem:hover {
-  transform: translateY(-5px);
-}
-
-.statNumber {
-  font-size: 2rem;
-  font-weight: 800;
-  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  margin-bottom: 0.5rem;
-}
-
-.statLabel {
-  color: #6b7280;
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-weight: 500;
-}
-
-@media (max-width: 768px) {
-  .statsSection {
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-  
-  .statItem {
-    text-align: left;
-    padding-left: 1rem;
-  }
-}
-
 /* Bottom Bar */
 .bottomBar {
   display: flex;
@@ -335,6 +279,7 @@
   align-items: center;
   gap: 1rem;
   padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .copyright {
@@ -356,19 +301,19 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: #3b82f6;
+  color: #ffffff;
   text-decoration: none;
   font-weight: 500;
   font-size: 0.875rem;
   padding: 0.5rem 1rem;
-  background: rgba(59, 130, 246, 0.05);
+  background: rgba(255, 255, 255, 0.05);
   border-radius: 2rem;
   transition: all 0.3s ease;
-  border: 1px solid rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .homeLink:hover {
-  background: rgba(59, 130, 246, 0.1);
+  background: rgba(255, 255, 255, 0.1);
   transform: translateY(-2px);
 }
 
@@ -379,9 +324,9 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: rgba(59, 130, 246, 0.05);
-  border: 1px solid rgba(59, 130, 246, 0.1);
-  color: #3b82f6;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #ffffff;
   cursor: pointer;
   transition: all 0.3s ease;
 }

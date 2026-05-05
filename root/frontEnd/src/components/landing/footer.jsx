@@ -147,21 +147,6 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Footer Stats */}
-        <div className={styles.statsSection}>
-          {[
-            { number: '5,000+', label: 'Active Users' },
-            { number: '850+', label: 'Trips/Month' },
-            { number: '98%', label: 'Satisfaction' },
-            { number: '24/7', label: 'Support Available' }
-          ].map((stat, i) => (
-            <div key={i} className={styles.statItem}>
-              <div className={styles.statNumber}>{stat.number}</div>
-              <div className={styles.statLabel}>{stat.label}</div>
-            </div>
-          ))}
-        </div>
-
         {/* Bottom Bar */}
         <div className={styles.bottomBar}>
           <div className={styles.copyright}>

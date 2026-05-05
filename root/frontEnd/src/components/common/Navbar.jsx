@@ -22,7 +22,7 @@ const Navbar = () => {
         <span className="badge badge-info">
           {user?.role_name?.replace('_', ' ') || 'Guest'}
         </span>
-        <button onClick={handleLogout} className="btn btn-outline">
+        <button onClick={handleLogout} className="btn btn-outline" style={{ color: 'white', borderColor: 'rgba(255,255,255,0.5)' }}>
           Logout
         </button>
       </div>

@@ -35,6 +35,10 @@ const Sidebar = () => {
     ],
     gate_guard: [
       { path: '/gate', label: 'Gate Schedule', icon: '🚪' }
+    ],
+    university_admin: [
+      { path: '/admin-reports', label: 'Reports', icon: '📈' },
+      { path: '/admin-users', label: 'User Management', icon: '👥' }
     ]
   }
 

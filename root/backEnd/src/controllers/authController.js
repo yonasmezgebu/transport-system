@@ -326,6 +326,43 @@ const forgotPassword = async (req, res) => {
     }
 };
 
+// ========== REGISTER STAFF ==========
+const registerStaff = async (req, res) => {
+    try {
+        const { full_name, email, phone, password } = req.body;
+        
+        if (!full_name || !email || !phone || !password) {
+            return res.status(400).json({ error: 'All fields are required' });
+        }
+        
+        // Check if user already exists
+        const [existing] = await pool.execute('SELECT email FROM users WHERE email = ?', [email]);
+        if (existing.length > 0) {
+            return res.status(400).json({ error: 'Email is already registered' });
+        }
+        
+        // Get staff role id
+        const [roles] = await pool.execute('SELECT role_id FROM roles WHERE role_name = ?', ['staff']);
+        if (roles.length === 0) {
+            return res.status(500).json({ error: 'Staff role not configured in the system' });
+        }
+        const staffRoleId = roles[0].role_id;
+        
+        const hashedPassword = await bcrypt.hash(password, 10);
+        
+        await pool.execute(
+            `INSERT INTO users (email, password_hash, full_name, phone, role_id, is_active)
+             VALUES (?, ?, ?, ?, ?, 1)`,
+            [email, hashedPassword, full_name, phone, staffRoleId]
+        );
+        
+        res.status(201).json({ success: true, message: 'Staff registration successful' });
+    } catch (error) {
+        console.error('Registration error:', error);
+        res.status(500).json({ error: 'Registration failed' });
+    }
+};
+
 // ========== EXPORT ALL FUNCTIONS ==========
 module.exports = { 
     login,           // ✅ Defined
@@ -337,5 +374,6 @@ module.exports = {
     initiateTwoFactor, // ✅ Defined
     verifyTwoFactor, // ✅ Defined
     changePassword,  // ✅ Defined
-    forgotPassword   // ✅ Defined
+    forgotPassword,   // ✅ Defined
+    registerStaff    // ✅ Defined
 };

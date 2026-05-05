@@ -5,6 +5,7 @@ import { NotificationProvider } from './contexts/NotificationContext'
 import { ThemeProvider } from './contexts/ThemeContext'
 import Login from './components/auth/Login'
 import ResetPassword from './components/auth/ResetPassword'
+import Register from './components/auth/Register'
 import LandingPage from './components/landing/LandingPage'
 import Navbar from './components/common/Navbar'
 import Sidebar from './components/common/Sidebar'
@@ -43,6 +44,7 @@ const StudentFeedback = React.lazy(() => import('./components/student/StudentFee
 const GateSchedule = React.lazy(() => import('./components/gate-guard/GateSchedule'))
 
 const AdminReports = React.lazy(() => import('./components/admin/AdminReports'))
+const AdminUsers = React.lazy(() => import('./components/admin/AdminUsers'))
 
 const ProtectedRoute = ({ children, allowedRoles }) => {
   const { user, isAuthenticated, loading } = useAuth()
@@ -108,6 +110,7 @@ function AppRoutes() {
       
       {/* Auth Routes */}
       <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
       <Route path="/reset-password" element={<ResetPassword />} />
       
       {/* Protected Dashboard Routes */}
@@ -290,6 +293,14 @@ function AppRoutes() {
         <ProtectedRoute allowedRoles={['university_admin']}>
           <AppLayout>
             <AdminReports />
+          </AppLayout>
+        </ProtectedRoute>
+      } />
+      
+      <Route path="/admin-users" element={
+        <ProtectedRoute allowedRoles={['university_admin']}>
+          <AppLayout>
+            <AdminUsers />
           </AppLayout>
         </ProtectedRoute>
       } />
